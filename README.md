@@ -1,8 +1,8 @@
-# Test task for Webtronics
+# Test task for Bcraft
 ## RESTful API microservice using FastAPI for statistics counters.
 ## Local launch of the project
 ```
-git clone https://github.com/krestovsky13/webtronics
+git clone https://github.com/krestovsky13/Bcraft
 docker-compose up --build
 ```
 ## Docs:
