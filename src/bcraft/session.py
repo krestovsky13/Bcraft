@@ -1,7 +1,7 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, Session
 
-from src.bcraft.config import settings
+from bcraft.config import settings
 
 
 class DatabaseSession:

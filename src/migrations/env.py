@@ -5,8 +5,8 @@ from sqlalchemy import pool
 
 from alembic import context
 
-from src.bcraft.api.models import Base
-from src.bcraft.config import settings
+from bcraft.api.models import Base
+from bcraft.config import settings
 
 config = context.config
 

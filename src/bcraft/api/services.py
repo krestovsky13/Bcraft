@@ -3,9 +3,9 @@ from typing import Type
 from sqlalchemy import text, desc, asc, func
 from sqlalchemy.orm import Session
 
-from src.bcraft.api.models import Statistic
-from src.bcraft.api.schemas import CreateStatistic, ShowPeriodStatistic
-from src.bcraft.repository import BaseRepository
+from bcraft.api.models import Statistic
+from bcraft.api.schemas import CreateStatistic, ShowPeriodStatistic
+from bcraft.repository import BaseRepository
 
 
 class StatisticRepository(BaseRepository):
@@ -35,9 +35,11 @@ class StatisticRepository(BaseRepository):
         """
         Получаем всю статистика за период
         """
-        self.session.query(self.model.clicks,
-                         func.avg(self.model.clicks).label('rating'),
-                         func.count('*').label('review_count'))
+        self.session.query(
+            self.model.clicks,
+            func.avg(self.model.clicks).label('rating'),
+            func.count('*').label('review_count'),
+        )
 
         field = args[0][0]
         sort = asc if (args[1][1] == 'asc') else desc

@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 
-from src.bcraft.api.routes import router
-from src.bcraft.config import settings
+from bcraft.api.routes import router
+from bcraft.config import settings
 
 
 def start_application():

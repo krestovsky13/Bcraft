@@ -4,19 +4,23 @@ from fastapi import Depends
 from sqlalchemy.orm import Session
 from starlette.exceptions import HTTPException
 
-from src.bcraft.api.models import Statistic
-from src.bcraft.repository import BaseRepository
-from src.bcraft.session import db_session
+from bcraft.api.models import Statistic
+from bcraft.repository import BaseRepository
+from bcraft.session import db_session
 
 
-def get_repository(repo_type: Type[BaseRepository]) -> Callable:
-    def get_repo(session: Session = Depends(db_session.get_session)) -> BaseRepository:
-        return repo_type(session)
+def get_repository(repo_type: Type[BaseRepository], session: Session = Depends(db_session.get_session)) -> Callable:
+    def get_repo(_session: Session = session) -> BaseRepository:
+        return repo_type(_session)
+
     return get_repo
 
 
 def validate_query_params(sort_by: Optional[str] = 'date', order_by: Optional[str] = 'desc'):
-    if sort_by in Statistic.__table__._columns.keys():
+    """
+    Валидация параметров запроса при сортировке
+    """
+    if sort_by in Statistic.__table__.columns.keys():
         if order_by:
             if order_by in ('asc', 'desc'):
                 return sort_by, order_by

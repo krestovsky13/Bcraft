@@ -3,9 +3,9 @@ from typing import Optional
 from fastapi import APIRouter, Depends
 from starlette import status
 
-from src.bcraft.api.deps import get_repository, validate_query_params
-from src.bcraft.api.schemas import CreateStatistic, ShowPeriodStatistic, ShowStatistic
-from src.bcraft.api.services import StatisticRepository
+from bcraft.api.deps import get_repository, validate_query_params
+from bcraft.api.schemas import CreateStatistic, ShowPeriodStatistic, ShowStatistic
+from bcraft.api.services import StatisticRepository
 
 router = APIRouter(
     prefix='/statistic',
@@ -16,7 +16,7 @@ router = APIRouter(
 @router.post("/save", response_model=CreateStatistic, status_code=status.HTTP_200_OK)
 async def save_stats(
         stats_schema: CreateStatistic,
-        stats_services: StatisticRepository = Depends(get_repository(StatisticRepository))
+        stats_services: StatisticRepository = Depends(get_repository(StatisticRepository)),
 ):
     return await stats_services.create_or_update(stats_schema)
 
@@ -32,8 +32,6 @@ async def show_stats(
 
 
 @router.delete("/reset", status_code=status.HTTP_200_OK)
-async def reset_stats(
-        stats_services: StatisticRepository = Depends(get_repository(StatisticRepository))
-):
+async def reset_stats(stats_services: StatisticRepository = Depends(get_repository(StatisticRepository))):
     await stats_services.clear_all_stats()
     return {"msg": "Statistics cleared successfully"}
