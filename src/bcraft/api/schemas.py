@@ -5,29 +5,6 @@ from pydantic import BaseModel, Field, validator
 from pydantic.types import StrictInt, NonNegativeInt
 
 
-# class RestrictedAlphabetStr(float):
-#     # @classmethod
-#     # def __get_validators__(cls) -> Generator[Callable, None, None]:
-#     #     yield cls.validate
-#     #
-#     # @classmethod
-#     # def validate(cls, value: str, field: ModelField):
-#     #     alphabet = field.field_info.extra['alphabet']
-#     #     if any(c not in alphabet for c in value):
-#     #         raise ValueError(f'{value!r} is not restricted to {alphabet!r}')
-#     #     return cls(value)
-#
-#     @classmethod
-#     def __modify_schema__(
-#         cls, field_schema: dict[str, Any], field: type['Statistic'] | None
-#     ):
-#         if field:
-#             ...
-
-#
-# class MyModel(BaseModel):
-#     value: RestrictedAlphabetStr = Field(alphabet='ABC')
-
 class PositiveStrictInt(StrictInt, NonNegativeInt):
     """
     Валидация не отрицательного целого числа

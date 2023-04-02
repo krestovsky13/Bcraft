@@ -25,8 +25,8 @@ def validate_query_params(sort_by: Optional[str] = 'date', order_by: Optional[st
             if order_by in ('asc', 'desc'):
                 return sort_by, order_by
             else:
-                raise HTTPException(status_code=400, detail=f"Query param {order_by} must be from the list ('asc', 'desc').")
+                raise HTTPException(status_code=422, detail=f"Query param {order_by} must be from the list ('asc', 'desc').")
         else:
-            raise HTTPException(status_code=400, detail=f"Query param {order_by} empty.")
+            raise HTTPException(status_code=422, detail=f"Query param {order_by} empty.")
     else:
-        raise HTTPException(status_code=400, detail=f"Query param {sort_by} not column of model.")
+        raise HTTPException(status_code=422, detail=f"Query param {sort_by} not column of model.")
